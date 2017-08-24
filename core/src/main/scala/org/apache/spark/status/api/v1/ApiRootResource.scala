@@ -177,6 +177,22 @@ private[v1] class ApiRootResource extends UIRootFromServletContext {
       @PathParam("attemptId") attemptId: String): EventLogDownloadResource = {
     new EventLogDownloadResource(uiRoot, appId, Some(attemptId))
   }
+  
+  @Path("applications/{appId}/environment")
+  def getEnvironment(@PathParam("appId") appId: String): ApplicationEnvironmentResource = {
+    withSparkUI(appId, None) { ui =>
+      new ApplicationEnvironmentResource(ui)
+    }
+  }
+
+  @Path("applications/{appId}/{attemptId}/environment")
+  def getEnvironment(
+      @PathParam("appId") appId: String,
+      @PathParam("attemptId") attemptId: String): ApplicationEnvironmentResource = {
+    withSparkUI(appId, Some(attemptId)) { ui =>
+      new ApplicationEnvironmentResource(ui)
+    }
+  }
 }
 
 private[spark] object ApiRootResource {
