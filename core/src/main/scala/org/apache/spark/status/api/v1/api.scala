@@ -19,8 +19,8 @@ package org.apache.spark.status.api.v1
 import java.util.Date
 
 import scala.collection.Map
-
 import org.apache.spark.JobExecutionStatus
+import org.apache.spark.ui.jobs.UIData.ExecutorUIData
 
 class ApplicationInfo private[spark](
     val id: String,
@@ -242,3 +242,7 @@ class RuntimeInfo private[spark](
     val javaVersion: String,
     val javaHome: String,
     val scalaVersion: String)
+    
+class ExecutorFullInfo private[spark] (
+    val executorInfo: Map[String, ExecutorUIData]
+    )

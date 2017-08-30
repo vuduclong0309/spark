@@ -180,7 +180,7 @@ private[v1] class ApiRootResource extends UIRootFromServletContext {
   
   @Path("applications/{appId}/environment")
   def getEnvironment(@PathParam("appId") appId: String): ApplicationEnvironmentResource = {
-    withSparkUI(appId, None) { ui =>
+    uiRoot.withSparkUI(appId, None) { ui =>
       new ApplicationEnvironmentResource(ui)
     }
   }
@@ -189,8 +189,15 @@ private[v1] class ApiRootResource extends UIRootFromServletContext {
   def getEnvironment(
       @PathParam("appId") appId: String,
       @PathParam("attemptId") attemptId: String): ApplicationEnvironmentResource = {
-    withSparkUI(appId, Some(attemptId)) { ui =>
+    uiRoot.withSparkUI(appId, Some(attemptId)) { ui =>
       new ApplicationEnvironmentResource(ui)
+    }
+  }
+  
+  @Path("applications/{appId}/executorfull")
+  def getExecutorFullInfo(@PathParam("appId") appId: String): ExecutorFullResource = {
+    uiRoot.withSparkUI(appId, None) { ui =>
+      new ExecutorFullResource(ui)
     }
   }
 }

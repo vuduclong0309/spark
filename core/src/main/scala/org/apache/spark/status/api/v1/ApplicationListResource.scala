@@ -25,7 +25,6 @@ import org.apache.spark.deploy.master.{ApplicationInfo => InternalApplicationInf
 
 @Produces(Array(MediaType.APPLICATION_JSON))
 private[v1] class ApplicationListResource(uiRoot: UIRoot) {
-
   @GET
   def appList(
       @QueryParam("status") status: JList[ApplicationStatus],
